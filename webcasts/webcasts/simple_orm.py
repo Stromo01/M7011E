@@ -160,7 +160,7 @@ if __name__ == "__main__":
     user = User(orm, name="John Doe")
     user.save()
 
-    post = Post(orm, title="My First Post", content="Hello, world!", user_id=user.id)
+    post = Post(orm, title="My Second Post", content="Hello, world!", user_id=user.id)
     post.save()
 
     # Fetch all posts for the user
