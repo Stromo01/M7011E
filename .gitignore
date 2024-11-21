@@ -1,8 +1,8 @@
 
 #
-/[Ww]ebcasts/.env
-/[Ww]ebcasts/.venv
-/[Ww]ebcasts/example.db
-/[Ww]ebcasts/db.sqlite3
-/[Ww]ebcasts/webcasts/__pycache__
+/.env
+/.venv
+/example.db
+/db.sqlite3
+/webcasts/__pycache__
 
