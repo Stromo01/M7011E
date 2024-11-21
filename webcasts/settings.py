@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'webcasts.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'M7011E',
+        'USER': 'sqldatabas',
+        'PASSWORD': 'LTU123',
+        'HOST':'34.88.71.249',
+        'PORT':'3306',
     }
 }
 
