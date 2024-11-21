@@ -1,0 +1,8 @@
+
+#
+/[Ww]ebcasts/.env
+/[Ww]ebcasts/.venv
+/[Ww]ebcasts/example.db
+/[Ww]ebcasts/db.sqlite3
+/[Ww]ebcasts/webcasts/__pycache__
+
