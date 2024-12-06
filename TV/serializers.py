@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import TV,Cart,Cart_Items,Review
+from .models import TV,Cart,Cart_Items,Review
 
 class TVSerializer(serializers.ModelSerializer):
     class Meta:
