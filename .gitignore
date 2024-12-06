@@ -1,8 +1,10 @@
 
 #
-/.env
-/.venv
+/webcasts/.env
+/webcasts/.venv
+/webcasts/__pycache__/
+/TV/__pycache__/
 /example.db
 /db.sqlite3
-/webcasts/__pycache__
+
 
