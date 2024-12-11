@@ -11,7 +11,7 @@ class TVAdmin(admin.ModelAdmin):
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('user' ,'cart_id', 'created_at')
+    list_display = ('user_id' ,'cart_id', 'created_at')
     fields = []
 
 @admin.register(Cart_Items)

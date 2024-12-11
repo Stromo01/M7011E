@@ -9,15 +9,15 @@ class TVSerializer(serializers.ModelSerializer):
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
-        fields = ['user_id', 'cart_id', 'created_at']
+        fields = ['user', 'cart_id', 'created_at']
 
 class Cart_ItemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart_Items
-        fields = ['cart_item_id', 'cart_id']
+        fields = ['cart_item_id', 'cart', 'tv', 'quantity']
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['review_id', 'tv_id', 'user_id', 'rating', 'review']
+        fields = ['review_id', 'tv', 'user', 'rating', 'review_text']
 

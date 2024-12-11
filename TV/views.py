@@ -97,7 +97,7 @@ class ReviewList(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    authentication_classes = [authentication.TokenAuthentication]
+    #authentication_classes = [authentication.TokenAuthentication]
     def post(self, request, format=None):
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid():
@@ -109,7 +109,7 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    authentication_classes = [authentication.TokenAuthentication]
+    #authentication_classes = [authentication.TokenAuthentication]
     def put(self, request, pk, format=None):
         review = self.get_object(pk)
         serializer = ReviewSerializer(review, data=request.data)

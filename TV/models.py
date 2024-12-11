@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 class TV(models.Model):
     """A typical class defining a model, derived from the Model class."""
@@ -34,9 +35,9 @@ class Cart(models.Model):
     """A typical class defining a model, derived from the Model class."""
 
     # Fields
-    user = models.ForeignKey(help_text='User ID',on_delete=models.CASCADE, to='auth.User')
-    cart_id = models.AutoField(help_text='TV ID',primary_key=True)
-    created_at = models.DateTimeField(auto_now_add=True, help_text='Created at') 
+    user = models.ForeignKey(User, help_text='User ID', on_delete=models.CASCADE)
+    cart_id = models.AutoField(help_text='Cart ID', primary_key=True)
+    created_at = models.DateTimeField(auto_now_add=True, help_text='Created at')
     # …
 
     # Metadata
