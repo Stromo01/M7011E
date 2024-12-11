@@ -9,13 +9,6 @@ class TVList(generics.ListCreateAPIView):
     queryset = TV.objects.all()
     serializer_class = TVSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-   # authentication_classes = [authentication.TokenAuthentication]
-
-
-class TVDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = TV.objects.all()
-    serializer_class = TVSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     #authentication_classes = [authentication.TokenAuthentication]
     def post(self, request, format=None):
         serializer = TVSerializer(data=request.data)
@@ -23,6 +16,12 @@ class TVDetail(generics.RetrieveUpdateDestroyAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TVDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TV.objects.all()
+    serializer_class = TVSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    authentication_classes = [authentication.TokenAuthentication]
     def put(self, request, pk, format=None):
         tv = self.get_object(pk)
         serializer = TVSerializer(tv, data=request.data)
