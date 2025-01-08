@@ -2,7 +2,8 @@ from .models import *
 from rest_framework import generics, permissions,authentication,status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import TVSerializer,CartSerializer,Cart_ItemsSerializer,ReviewSerializer
+from .serializers import TVSerializer,CartSerializer,Cart_ItemsSerializer,ReviewSerializer,UserSerializer
+from django.views.decorators.csrf import csrf_exempt
 
 
 class TVList(generics.ListCreateAPIView):
@@ -19,16 +20,16 @@ class TVList(generics.ListCreateAPIView):
 class TVDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = TV.objects.all()
     serializer_class = TVSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, permissions.IsAdminUser]
     def put(self, request, pk, format=None):
-        tv = self.get_object(pk)
+        tv = self.get_object()
         serializer = TVSerializer(tv, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     def delete(self, request, pk, format=None):
-        tv = self.get_object(pk)
+        tv = self.get_object()
         tv.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
@@ -113,3 +114,14 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
         review = self.get_object(pk)
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@csrf_exempt
+@api_view(['POST'])
+def create_user(request):
+    if request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
