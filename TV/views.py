@@ -32,7 +32,6 @@ class TVDetail(generics.RetrieveUpdateDestroyAPIView):
         tv = self.get_object()
         tv.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
 
 class CartList(generics.ListCreateAPIView):
     queryset = Cart.objects.all()
@@ -40,6 +39,7 @@ class CartList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def post (self, request, format=None):
         serializer = CartSerializer(data=request.data)
+        serializer.initial_data['user'] = request.user.id
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -50,14 +50,18 @@ class CartDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def put(self, request, pk, format=None):
-        cart = self.get_object(pk)
+        cart = self.get_object()
+        if cart.user != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
         serializer = CartSerializer(cart, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     def delete(self, request, pk, format=None):
-        cart = self.get_object(pk)
+        cart = self.get_object()
+        if cart.user != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
         cart.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -77,14 +81,18 @@ class CartItemsDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Cart_ItemsSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def put(self, request, pk, format=None):
-        cart_item = self.get_object(pk)
+        cart_item = self.get_object()
+        if cart_item.cart.user != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
         serializer = Cart_ItemsSerializer(cart_item, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     def delete(self, request, pk, format=None):
-        cart_item = self.get_object(pk)
+        cart_item = self.get_object()
+        if cart_item.cart.user != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
         cart_item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -104,14 +112,18 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReviewSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def put(self, request, pk, format=None):
-        review = self.get_object(pk)
+        review = self.get_object()
+        if review.user != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
         serializer = ReviewSerializer(review, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     def delete(self, request, pk, format=None):
-        review = self.get_object(pk)
+        review = self.get_object()
+        if review.user != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
