@@ -102,6 +102,7 @@ class ReviewList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def post(self, request, format=None):
         serializer = ReviewSerializer(data=request.data)
+        serializer.initial_data['user'] = request.user.id
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
