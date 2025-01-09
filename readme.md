@@ -8,7 +8,8 @@ enter the environment: .venv\Scripts\activate
 The installs needed:
 pip install djangorestframework
 pip install django
-pip install Pillow(might not be needed, you could try without first)   
+pip install Pillow(might not be needed, you could try without first)
+pip install mysqlclient
 
 Before running the server, make sure that the database is running. (Google Cloud)
 
