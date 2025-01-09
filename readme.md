@@ -6,6 +6,7 @@ To run the backend:
 enter the environment: .venv\Scripts\activate
 
 The installs needed:
+
 pip install djangorestframework
 
 pip install django
